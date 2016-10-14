@@ -78,6 +78,13 @@ class BaseRepresenter(Representer):
         values = list(map(float, [val for val in values if val != '']))
         return bar_encode(values)
 
+    @for_type('list:decimal')
+    def _list_decimal(self, value):
+        from decimal import Decimal
+        values = self._ensure_list(value)
+        values = [Decimal(val).normalize() for val in values if val != '']
+        return bar_encode(values)
+
     @for_type('list:string')
     def _list_string(self, value):
         value = self._ensure_list(value)
@@ -284,6 +291,12 @@ class NoSQLRepresenter(BaseRepresenter):
     def _list_double(self, value):
         values = self._represent_list(value)
         return list(map(float, values))
+
+    @for_type('list:decimal')
+    def _list_decimal(self, value):
+        from decimal import Decimal
+        values = self._represent_list(value)
+        return list(map(Decimal, values))
 
     @for_type('list:string')
     def _list_string(self, value):

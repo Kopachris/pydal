@@ -86,6 +86,13 @@ def bar_decode_double(value):
     return [float(x) for x in value.split('|') if x.strip()]
 
 
+def bar_decode_decimal(value):
+    from decimal import Decimal
+    if not hasattr(value, 'split') and hasattr(value, 'read'):
+        value = value.read()
+    return [Decimal(x) for x in value.split('|') if x.strip()]
+
+
 def bar_decode_string(value):
     return [x.replace('||', '|') for x in
             REGEX_UNPACK.split(value[1:-1]) if x.strip()]

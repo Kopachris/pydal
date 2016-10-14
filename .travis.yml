@@ -42,9 +42,9 @@ matrix:
 before_script:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then pip install codecov; fi
   - if [[ $ADAPTER == mongo ]]; then sleep 15; fi;
-  - if [[ $ADAPTER == mysql ]]; then mysql -e 'create database pydal;'; fi
-  - if [[ $ADAPTER == postgres* ]]; then psql -c 'create database pydal;' -U postgres; fi
-  - if [[ $ADAPTER == postgres* ]]; then psql -c 'create extension postgis;' -U postgres -d pydal; fi
+  - if [[ $ADAPTER == mysql ]]; then mysql -e 'create database pydal_lists;'; fi
+  - if [[ $ADAPTER == postgres* ]]; then psql -c 'create database pydal_lists;' -U postgres; fi
+  - if [[ $ADAPTER == postgres* ]]; then psql -c 'create extension postgis;' -U postgres -d pydal_lists; fi
   - if [[ $ADAPTER == postgres* ]]; then psql -c 'SHOW SERVER_VERSION' -U postgres; fi
 
   # Install last sdk for app engine (update only whenever a new release is available)

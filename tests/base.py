@@ -2,8 +2,8 @@
 
 from ._compat import unittest
 from ._adapt import DEFAULT_URI, drop, IS_MSSQL, IS_IMAP, IS_GAE
-from pydal import DAL, Field
-from pydal._compat import PY2
+from pydal_lists import DAL, Field
+from pydal_lists._compat import PY2
 
 
 @unittest.skipIf(IS_IMAP, "Reference not Null unsupported on IMAP")
@@ -18,7 +18,7 @@ class TestReferenceNOTNULL(unittest.TestCase):
             db.define_table('tt', Field('vv'))
             db.define_table('ttt', Field('vv'), Field('tt_id', '%s tt' % ref,
                                                       notnull=True))
-            self.assertRaises(Exception, db.ttt.insert, vv='pydal')
+            self.assertRaises(Exception, db.ttt.insert, vv='pydal_lists')
             # The following is mandatory for backends as PG to close the aborted transaction
             db.commit()
             drop(db.ttt)
@@ -40,10 +40,10 @@ class TestReferenceUNIQUE(unittest.TestCase):
             db.define_table('ttt', Field('vv'),
                             Field('tt_id', '%s tt' % ref, unique=True),
                             Field('tt_uq', 'integer', unique=True))
-            id_1 = db.tt.insert(vv='pydal')
-            id_2 = db.tt.insert(vv='pydal')
+            id_1 = db.tt.insert(vv='pydal_lists')
+            id_2 = db.tt.insert(vv='pydal_lists')
             # Null tt_id
-            db.ttt.insert(vv='pydal', tt_uq=1)
+            db.ttt.insert(vv='pydal_lists', tt_uq=1)
             # first insert is OK
             db.ttt.insert(tt_id=id_1, tt_uq=2)
             self.assertRaises(Exception, db.ttt.insert, tt_id=id_1, tt_uq=3)
@@ -69,9 +69,9 @@ class TestReferenceUNIQUENotNull(unittest.TestCase):
             db.define_table('ttt', Field('vv'), Field('tt_id', '%s tt' % ref,
                                                       unique=True,
                                                       notnull=True))
-            self.assertRaises(Exception, db.ttt.insert, vv='pydal')
+            self.assertRaises(Exception, db.ttt.insert, vv='pydal_lists')
             db.commit()
-            id_i = db.tt.insert(vv='pydal')
+            id_i = db.tt.insert(vv='pydal_lists')
             # first insert is OK
             db.ttt.insert(tt_id=id_i)
             self.assertRaises(Exception, db.ttt.insert, tt_id=id_i)

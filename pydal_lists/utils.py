@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-    pydal.utils
+    pydal_lists.utils
     -----------
 
-    Provides some utilities for pydal.
+    Provides some utilities for pydal_lists.
 
     :copyright: (c) 2016 by Giovanni Barillari and contributors
     :license: BSD, see LICENSE for more details.

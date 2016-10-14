@@ -1,4 +1,5 @@
 import datetime
+from decimal import Decimal
 from .._compat import integer_types
 from ..adapters.base import SQLAdapter
 from ..helpers.methods import use_common_filters
@@ -116,6 +117,10 @@ class SQLDialect(CommonDialect):
         
     @sqltype_for('list:double')
     def type_list_double(self):
+        return self.types['text']
+
+    @sqltype_for('list:decimal')
+    def type_list_decimal(self):
         return self.types['text']
 
     @sqltype_for('list:string')
@@ -304,6 +309,8 @@ class SQLDialect(CommonDialect):
                             second.db, self.replace(
                                 second, ('%', '\%'))), ('|', '||'))), '|%'))
             else:
+                if isinstance(second, Decimal):
+                    second = second.normalize()
                 second = str(second).replace('|', '||')
                 second = '%|'+self._like_escaper_default(second)+'|%'
         op = case_sensitive and self.like or self.ilike
@@ -525,6 +532,10 @@ class NoSQLDialect(CommonDialect):
         
     @sqltype_for('list:double')
     def type_list_double(self):
+        return list
+
+    @sqltype_for('list:decimal')
+    def type_list_decimal(self):
         return list
 
     @sqltype_for('list:string')

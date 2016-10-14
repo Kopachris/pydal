@@ -9,10 +9,10 @@ import os
 import glob
 import datetime
 
-from pydal._compat import PY2, basestring, StringIO, integer_types, xrange
-from pydal import DAL, Field
-from pydal.helpers.classes import SQLALL
-from pydal.objects import Table
+from pydal_lists._compat import PY2, basestring, StringIO, integer_types, xrange
+from pydal_lists import DAL, Field
+from pydal_lists.helpers.classes import SQLALL
+from pydal_lists.objects import Table
 from ._compat import unittest
 from ._adapt import (
     DEFAULT_URI, IS_POSTGRESQL, IS_SQLITE, IS_MSSQL, IS_MYSQL, _quote)
@@ -1999,9 +1999,9 @@ class TestRNameFields(unittest.TestCase):
         self.assertEqual(row['tt.aa'],t0)
         self.assertEqual(row('tt.aa'),t0)
         self.assertTrue('aa' in row)
-        self.assertTrue('pydal' not in row)
+        self.assertTrue('pydal_lists' not in row)
         self.assertTrue(hasattr(row, 'aa'))
-        self.assertFalse(hasattr(row, 'pydal'))
+        self.assertFalse(hasattr(row, 'pydal_lists'))
 
         ## Lazy and Virtual fields
         db.tt.b = Field.Virtual(lambda row: row.tt.aa)
@@ -2215,7 +2215,7 @@ class TestQuotesByDefault(unittest.TestCase):
 class TestGis(unittest.TestCase):
 
     def testGeometry(self):
-        from pydal import geoPoint, geoLine, geoPolygon
+        from pydal_lists import geoPoint, geoLine, geoPolygon
         if not IS_POSTGRESQL: return
         db = DAL(DEFAULT_URI, check_reserved=['all'])
         t0 = db.define_table('t0', Field('point', 'geometry()'))
@@ -2247,7 +2247,7 @@ class TestGis(unittest.TestCase):
         db.close()
 
     def testGeometryCase(self):
-        from pydal import geoPoint, geoLine, geoPolygon
+        from pydal_lists import geoPoint, geoLine, geoPolygon
         if not IS_POSTGRESQL: return
         db = DAL(DEFAULT_URI, check_reserved=['all'], ignore_field_case=False)
         t0 = db.define_table('t0', Field('point', 'geometry()'), Field('Point', 'geometry()'))
@@ -2274,7 +2274,7 @@ class TestSQLCustomType(unittest.TestCase):
 
     def testRun(self):
         db = DAL(DEFAULT_URI, check_reserved=['all'])
-        from pydal.helpers.classes import SQLCustomType
+        from pydal_lists.helpers.classes import SQLCustomType
         native_double = "double"
         native_string = "string"
         if hasattr(db._adapter, 'types'):
@@ -2487,7 +2487,7 @@ class TestSerializers(unittest.TestCase):
     def testSelectIterselect(self):
         db = DAL(DEFAULT_URI, check_reserved=['all'])
         db.define_table('tt', Field('tt'))
-        db.tt.insert(tt='pydal')
+        db.tt.insert(tt='pydal_lists')
         methods = ['as_dict', 'as_csv', 'as_json', 'as_xml', 'as_list']
         for method in methods:
             rows = db(db.tt).select()
@@ -2504,7 +2504,7 @@ class TestIterselect(unittest.TestCase):
     def testRun(self):
         db = DAL(DEFAULT_URI, check_reserved=['all'])
         t0 = db.define_table('t0', Field('name'))
-        names = ['web2py', 'pydal', 'Massimo']
+        names = ['web2py', 'pydal_lists', 'Massimo']
         for n in names:
             t0.insert(name=n)
 
@@ -2567,7 +2567,7 @@ class TestIterselect(unittest.TestCase):
         t0 = db.define_table('t0', Field('name'), Field('name_copy'))
         db(db.t0).delete()
         db.commit()
-        names = ['web2py', 'pydal', 'Massimo']
+        names = ['web2py', 'pydal_lists', 'Massimo']
         for n in names:
             t0.insert(name=n)
         c = 0

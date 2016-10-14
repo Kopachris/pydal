@@ -182,7 +182,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'pydal.tex', u'pyDAL Documentation',
+  ('index', 'pydal_lists.tex', u'pyDAL Documentation',
    u'web2py-developers', 'manual'),
 ]
 

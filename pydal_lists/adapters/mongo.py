@@ -34,7 +34,7 @@ class Mongo(NoSQLAdapter):
             from pymongo import version
         if int(version.split('.')[0]) < 3:
             raise RuntimeError(
-                "pydal requires pymongo version >= 3.0, found '%s'" % version)
+                "pydal_lists requires pymongo version >= 3.0, found '%s'" % version)
 
     def _initialize_(self, do_connect):
         super(Mongo, self)._initialize_(do_connect)
@@ -541,7 +541,7 @@ class Mongo(NoSQLAdapter):
 
 class Expansion(object):
     """
-    Class to encapsulate a pydal expression and track the parse
+    Class to encapsulate a pydal_lists expression and track the parse
     expansion and its results.
 
     Two different MongoDB mechanisms are targeted here.  If the query

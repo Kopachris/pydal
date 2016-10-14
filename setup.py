@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 pyDAL is a pure Python Database Abstraction Layer.
 
@@ -9,6 +11,9 @@ be portable among different types of databases.
 pyDAL comes from the original web2py's DAL, with the aim of being
 wide-compatible. pyDAL doesn't require web2py and can be used in any
 Python context.
+
+This fork of pyDAL includes two additional field types: list:double and
+list:decimal.
 
 
 Links
@@ -23,14 +28,14 @@ from setuptools import setup
 
 _version_re = re.compile(r'__version__\s+=\s+(.*)')
 
-with open('pydal/__init__.py', 'rb') as f:
+with open('pydal_lists/__init__.py', 'rb') as f:
     version = str(ast.literal_eval(_version_re.search(
         f.read().decode('utf-8')).group(1)))
 
 setup(
     name='pyDAL',
     version=version,
-    url='https://github.com/web2py/pydal',
+    url='https://github.com/Kopachris/pydal',
     license='BSD',
     author='Massimo Di Pierro',
     author_email='mdipierro@cs.depaul.edu',
@@ -39,8 +44,8 @@ setup(
     description='a pure Python Database Abstraction Layer',
     long_description=__doc__,
     packages=[
-        'pydal', 'pydal.adapters', 'pydal.dialects', 'pydal.helpers',
-        'pydal.parsers', 'pydal.representers', 'pydal.contrib'],
+        'pydal_lists', 'pydal_lists.adapters', 'pydal_lists.dialects', 'pydal_lists.helpers',
+        'pydal_lists.parsers', 'pydal_lists.representers', 'pydal_lists.contrib'],
     include_package_data=True,
     zip_safe=False,
     platforms='any',

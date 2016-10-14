@@ -390,12 +390,12 @@ class DAL(with_metaclass(MetaDAL, Serializable, BasicStorage)):
 
         if not issubclass(self.Rows, Rows):
             raise RuntimeError(
-                '`Rows` class must be a subclass of pydal.objects.Rows'
+                '`Rows` class must be a subclass of pydal_lists.objects.Rows'
             )
 
         if not issubclass(self.Row, Row):
             raise RuntimeError(
-                '`Row` class must be a subclass of pydal.objects.Row'
+                '`Row` class must be a subclass of pydal_lists.objects.Row'
             )
 
         from .drivers import DRIVERS, is_jdbc

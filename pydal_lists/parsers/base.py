@@ -5,7 +5,7 @@ from decimal import Decimal
 from .._compat import PY2, integer_types, basestring, to_bytes, to_native
 from ..adapters.base import SQLAdapter
 from ..helpers.classes import Reference
-from ..helpers.methods import bar_decode_string, bar_decode_integer, bar_decode_double
+from ..helpers.methods import bar_decode_string, bar_decode_integer, bar_decode_double, bar_decode_decimal
 from . import Parser, parsers, for_type, before_parse
 
 long = integer_types[-1]
@@ -140,6 +140,10 @@ class ListsParser(BasicParser):
     @for_type('list:double')
     def _list_doubles(self, value):
         return bar_decode_double(value)
+
+    @for_type('list:decimal')
+    def _list_decimals(self, value):
+        return bar_decode_decimal(value)
 
     @for_type('list:string')
     def _list_strings(self, value):

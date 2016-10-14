@@ -1,8 +1,8 @@
 from ._compat import unittest
 from ._adapt import DEFAULT_URI, IS_GAE, IS_IMAP, drop
-from pydal._compat import integer_types
-from pydal import DAL, Field
-from pydal.helpers.methods import smart_query
+from pydal_lists._compat import integer_types
+from pydal_lists import DAL, Field
+from pydal_lists.helpers.methods import smart_query
 
 
 @unittest.skipIf(IS_IMAP, "Skip nosql")
@@ -70,8 +70,8 @@ class TestSmartQuery(unittest.TestCase):
         if not IS_GAE:
             # Test string field query
             # starts with
-            keywords = 'a_table.string_field starts with "pydal"'
-            q = (db.a_table.string_field.startswith('pydal'))
+            keywords = 'a_table.string_field starts with "pydal_lists"'
+            q = (db.a_table.string_field.startswith('pydal_lists'))
             smart_q = smart_query(fields, keywords)
             self.assertEqual(smart_q, q)
 

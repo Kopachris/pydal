@@ -10,22 +10,22 @@ import glob
 import datetime
 from ._compat import unittest
 
-from pydal._compat import PY2, basestring, StringIO, integer_types, to_bytes
+from pydal_lists._compat import PY2, basestring, StringIO, integer_types, to_bytes
 
 long = integer_types[-1]
 
-from pydal import DAL, Field
-from pydal.objects import Table, Query, Expression
-from pydal.helpers.classes import SQLALL
-from pydal.exceptions import NotOnNOSQLError
+from pydal_lists import DAL, Field
+from pydal_lists.objects import Table, Query, Expression
+from pydal_lists.helpers.classes import SQLALL
+from pydal_lists.exceptions import NotOnNOSQLError
 from ._adapt import DEFAULT_URI, IS_IMAP, drop, IS_GAE, IS_MONGODB, _quote
 
 if IS_IMAP:
-    from pydal.adapters import IMAPAdapter
-    from pydal.contrib import mockimaplib
+    from pydal_lists.adapters import IMAPAdapter
+    from pydal_lists.contrib import mockimaplib
     IMAPAdapter.driver = mockimaplib
 elif IS_MONGODB:
-    from pydal.adapters.mongo import Expansion
+    from pydal_lists.adapters.mongo import Expansion
 elif IS_GAE:
     # setup GAE dummy database
     from google.appengine.ext import testbed
@@ -2183,7 +2183,7 @@ class TestSQLCustomType(unittest.TestCase):
 
     def testRun(self):
         db = DAL(DEFAULT_URI, check_reserved=['all'])
-        from pydal.helpers.classes import SQLCustomType
+        from pydal_lists.helpers.classes import SQLCustomType
         native_double = "double"
         native_string = "string"
         if hasattr(db._adapter, 'types'):

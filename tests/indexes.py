@@ -1,4 +1,4 @@
-from pydal import DAL, Field
+from pydal_lists import DAL, Field
 from ._compat import unittest
 from ._adapt import DEFAULT_URI, IS_POSTGRESQL, drop
 
